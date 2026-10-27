@@ -25,3 +25,7 @@ def test_ready(client: TestClient) -> None:
 
 def test_version(client: TestClient) -> None:
     assert client.get("/version").json() == {"version": __version__}
+
+
+def test_hello(client: TestClient) -> None:
+    assert client.get("/hello").json() == {"message": "hello"}

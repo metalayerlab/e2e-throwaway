@@ -35,4 +35,8 @@ def create_app(config: Config) -> FastAPI:
     def get_version() -> dict[str, str]:
         return {"version": __version__}
 
+    @app.get("/hello", summary="A friendly greeting", tags=["demo"])
+    def hello() -> dict[str, str]:
+        return {"message": "hello"}
+
     return app
