@@ -1,0 +1,41 @@
+# e2e-throwaway under Docker Compose. Template-owned skeleton; see the wiki's
+# Deployment page.
+#
+#   docker compose -f contrib/docker/compose.yml up -d
+#   docker exec e2e-throwaway e2e-throwaway config     # effective config and sources
+#
+# Config: ./config/config.yaml (from contrib/e2e-throwaway.example.yaml), mounted
+# read-only. Secrets: as files under ./secrets, passed with E2E_THROWAWAY_<KEY>_FILE.
+
+services:
+  e2e-throwaway:
+    image: ghcr.io/metalayerlab/e2e-throwaway:0.0.0 # x-release-please-version
+    container_name: e2e-throwaway
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:8080:8080"   # loopback only: put a reverse proxy in front
+
+    volumes:
+      - ./config:/etc/e2e-throwaway:ro
+      - ./state:/var/lib/e2e-throwaway
+      # - ./secrets:/run/secrets/e2e-throwaway:ro
+
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "Europe/London"
+      # E2E_THROWAWAY_LOG_LEVEL: DEBUG
+      # E2E_THROWAWAY_SOME_TOKEN_FILE: /run/secrets/e2e-throwaway/some-token
+
+    # Hardening: read-only root, no new privileges, only the capabilities it needs
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    # The entrypoint chowns the state directory, then drops to PUID:PGID
+    cap_add: [CHOWN, SETUID, SETGID, DAC_OVERRIDE, FOWNER]
+
+    # The image's HEALTHCHECK polls /healthz

@@ -1,0 +1,71 @@
+[project]
+name = "e2e-throwaway"
+# Owned by release-please: never edit by hand (see the wiki's Release-Process page).
+version = "0.0.0"
+description = "Throwaway end-to-end test of project-template"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "Unlicense"
+dependencies = [
+    "pyyaml>=6.0",
+    "typer>=0.15",
+    "fastapi>=0.115",
+    "uvicorn>=0.34",
+]
+
+[project.scripts]
+e2e-throwaway = "e2e_throwaway.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/metalayerlab/e2e-throwaway"
+Documentation = "https://github.com/metalayerlab/e2e-throwaway/wiki"
+Changelog = "https://github.com/metalayerlab/e2e-throwaway/blob/main/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.15",
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "ruff>=0.11",
+    "types-pyyaml",
+    "httpx>=0.28",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/e2e_throwaway"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "S", "T20"]
+
+[tool.ruff.lint.per-file-ignores]
+# assert is how pytest checks; scripts print, and run git, by design.
+"tests/*" = ["S101"]
+"scripts/*" = ["T20", "S603", "S607"]
+
+[tool.mypy]
+strict = true
+files = ["src/e2e_throwaway", "tests", "scripts"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers --strict-config --cov --cov-report=term-missing"
+testpaths = ["tests"]
+markers = ["integration: talks to real external systems; deselect with -m 'not integration'"]
+
+[tool.coverage.run]
+source = ["e2e_throwaway"]
+omit = ["*/__main__.py"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+exclude_also = ["if __name__ == .__main__.:", "if TYPE_CHECKING:"]
