@@ -1,7 +1,7 @@
 [project]
 name = "e2e-throwaway"
 # Owned by release-please: never edit by hand (see the wiki's Release-Process page).
-version = "0.1.0"
+version = "0.1.1"
 description = "Throwaway end-to-end test of project-template"
 readme = "README.md"
 requires-python = ">=3.13"
