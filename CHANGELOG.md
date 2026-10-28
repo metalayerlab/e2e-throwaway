@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/metalayerlab/e2e-throwaway/compare/v0.1.0...v0.1.1) (2026-10-28)
+
+
+### 🔧 Maintenance
+
+* release 0.1.1 ([#12](https://github.com/metalayerlab/e2e-throwaway/issues/12)) ([0ffac82](https://github.com/metalayerlab/e2e-throwaway/commit/0ffac82b9378d97890a7c8bca849b360e91a5308))
+
 ## 0.1.0 (2026-10-28)
 
 

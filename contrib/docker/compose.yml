@@ -9,7 +9,7 @@
 
 services:
   e2e-throwaway:
-    image: ghcr.io/metalayerlab/e2e-throwaway:0.1.0 # x-release-please-version
+    image: ghcr.io/metalayerlab/e2e-throwaway:0.1.1 # x-release-please-version
     container_name: e2e-throwaway
     restart: unless-stopped
 
