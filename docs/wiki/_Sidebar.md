@@ -41,7 +41,10 @@
 
 ### 🔑 Key Features
 
-<!-- guidance: three to five one-line features, each starting with an emoji. -->
+- 🩺 Health and readiness endpoints
+- ⚙️ Layered configuration: files, environment, secrets
+- 🖥️ Typer command line
+- 🐳 Hardened Docker, Kubernetes and systemd manifests
 
 ---
 

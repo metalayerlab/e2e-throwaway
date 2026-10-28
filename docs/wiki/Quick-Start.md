@@ -6,7 +6,7 @@ From nothing to a working e2e-throwaway in a few minutes. Everything else is in 
 
 - Docker (or any OCI runtime)
 - For running from source: Python >= 3.13 and [uv](https://docs.astral.sh/uv/)
-<!-- guidance: add what it talks to: accounts, API keys, other services. -->
+- Nothing else: the service has no external dependencies, accounts or API keys.
 
 ## Install
 
@@ -26,7 +26,14 @@ curl http://127.0.0.1:8080/healthz      # {"status":"ok"}
 docker exec e2e-throwaway e2e-throwaway config   # the effective configuration
 ```
 
-<!-- guidance: extend this into the first real task a user does, with the expected output. -->
+Then call the greeting and version endpoints:
+
+```sh
+curl http://127.0.0.1:8080/hello       # {"message":"hello"}
+curl http://127.0.0.1:8080/version     # {"version":"<installed version>"}
+```
+
+See the [HTTP API Reference](HTTP-API-Reference) for all endpoints.
 
 ## Next steps
 

@@ -2,12 +2,12 @@
 
 ## What it is
 
-<!-- guidance: the problem it solves, for whom, and what it deliberately does not try to be. Plain language: a new team member should understand it in a minute. -->
+e2e-throwaway is a tiny HTTP service that exists to exercise the project template end to end: configuration, CLI, API, container image, manifests and wiki. It is for the template's maintainers and for people learning its conventions. It does not do any real work beyond answering a few endpoints.
 
 ## How it works
 
-<!-- guidance: a short tour, in prose (a diagram helps): the main parts and how a request or job flows through them. Leave the detail for Architecture-Internals. -->
+`e2e-throwaway serve` loads the configuration (environment, files, defaults), builds the FastAPI app and runs it under uvicorn. Clients call `/healthz`, `/readyz`, `/version` or `/hello` and get small JSON answers. Internals are in [Architecture Internals](Architecture-Internals).
 
 ## When not to use it
 
-<!-- guidance: the limits and the better alternatives (scale, environments, features it lacks). Being honest here saves users' time. -->
+Do not use it for production workloads: it has no authentication, no persistent state and no real functionality. Start from the template instead when you need a new service.

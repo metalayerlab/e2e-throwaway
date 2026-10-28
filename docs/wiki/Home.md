@@ -2,7 +2,12 @@
 
 Throwaway end-to-end test of project-template
 
-<!-- guidance: a paragraph on what this does and who it's for, then the smallest example that shows it working (a command and its output, or a request and its response). -->
+A minimal FastAPI service with a Typer command line, used as an end-to-end test of the project template. It serves health, readiness, version and greeting endpoints, and is meant for developers who want to see the template's conventions working.
+
+```sh
+e2e-throwaway serve &
+curl http://127.0.0.1:8080/hello      # {"message":"hello"}
+```
 
 ## Table of Contents
 

@@ -36,4 +36,13 @@ Print the version.
 | 1 | Failure while running |
 | 2 | Bad usage or invalid configuration |
 
-<!-- guidance: add project-specific exit codes, and worked examples of common invocations. -->
+Examples:
+
+```sh
+e2e-throwaway version                          # prints the version
+e2e-throwaway config -c ./config.yaml          # effective settings and their sources
+e2e-throwaway serve                            # listen on 0.0.0.0:8080
+E2E_THROWAWAY_LISTEN_PORT=9000 e2e-throwaway serve
+```
+
+An invalid configuration prints one `error: ...` line to stderr and exits with code 2. There are no project-specific exit codes.
