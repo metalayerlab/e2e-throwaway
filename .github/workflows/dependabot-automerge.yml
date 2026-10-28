@@ -1,6 +1,6 @@
-# Template-owned. Approves and auto-merges Dependabot PRs up to patch
-# updates, once the required checks pass; anything bigger waits for a human.
-# Why, and the ruleset this needs: project-template design record 0003.
+# Template-owned. Queues auto-merge on Dependabot PRs up to patch updates:
+# a code owner's approval then merges the PR as soon as the required checks pass.
+# It never approves: a bot approval must not count as a review (design record 0003).
 name: Dependabot auto-merge
 
 on: pull_request
@@ -18,12 +18,9 @@ jobs:
       - id: meta
         uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
 
-      - name: Approve and enable auto-merge
+      - name: Queue auto-merge
         if: steps.meta.outputs.update-type == 'version-update:semver-patch'
         env:
           GH_TOKEN: ${{ github.token }}
           PR: ${{ github.event.pull_request.html_url }}
-          UPDATE: ${{ steps.meta.outputs.update-type }}
-        run: |
-          gh pr review "$PR" --approve --body "Auto-approved: ${UPDATE#version-update:semver-} update (dependabot-automerge.yml)."
-          gh pr merge "$PR" --auto --squash
+        run: gh pr merge "$PR" --auto --squash
