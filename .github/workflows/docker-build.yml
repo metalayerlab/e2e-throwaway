@@ -74,7 +74,7 @@ jobs:
             type=raw,value=edge,enable=${{ github.ref_name == 'main' && inputs.tag == '' }}
             type=semver,pattern={{version}},value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
             type=semver,pattern={{major}}.{{minor}},value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
-            type=semver,pattern={{major}},value=${{ inputs.tag }},enable=${{ inputs.tag != '' }}
+            type=semver,pattern={{major}},value=${{ inputs.tag }},enable=${{ inputs.tag != '' && !startsWith(inputs.tag, 'v0.') }}
             type=raw,value=latest,enable=${{ inputs.latest == true }}
 
       # Build for this runner only and prove the container starts and answers.

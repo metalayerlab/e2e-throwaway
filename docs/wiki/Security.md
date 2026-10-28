@@ -18,6 +18,7 @@ There are no secrets today. When one is added, list it here with what it grants 
 - **Kubernetes:** *restricted* Pod Security Standard, `seccompProfile: RuntimeDefault`, no service-account token, and a NetworkPolicy that admits only the ingress controller.
 - **systemd:** a dedicated system user, `ProtectSystem=strict`, no capabilities, a system-call filter, and restricted address families.
 - **Supply chain:** dependencies are pinned in the lock file and updated weekly by Dependabot. GitHub Actions are pinned to commit SHAs.
+- **Dependency auto-merge:** Dependabot patch updates get auto-merge queued by `dependabot-automerge.yml`: they still need a code owner's approval, then merge once CI passes.
 
 Input validation: configuration values are type-checked and range-checked at startup, and the endpoints take no user input. Authentication, authorisation and rate limiting are not implemented; do them at the reverse proxy if needed.
 
