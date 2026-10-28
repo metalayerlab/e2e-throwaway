@@ -10,6 +10,7 @@ Generated from the code: don't edit the table, run `uv run scripts/gen-wiki.py`.
 | Method | Path | Summary |
 |---|---|---|
 | `GET` | `/healthz` | Liveness: the process is up |
+| `GET` | `/hello` | A friendly greeting |
 | `GET` | `/readyz` | Readiness: able to serve requests |
 | `GET` | `/version` | The running version |
 <!-- generated:end http-api -->
@@ -17,6 +18,16 @@ Generated from the code: don't edit the table, run `uv run scripts/gen-wiki.py`.
 `/healthz` (liveness) answers as long as the process runs. `/readyz` (readiness) answers 503 while the service can't serve, for example while a dependency is down. Orchestrators should restart on the first and route traffic on the second.
 
 <!-- guidance: for every non-health endpoint, add a subsection with the request (parameters, body), the response (with an example) and the errors it can return. -->
+
+### `GET /hello`
+
+Returns a greeting, for checking the API end to end.
+
+```json
+{"message": "hello"}
+```
+
+No parameters, and no errors beyond the defaults.
 
 ## Authentication
 
