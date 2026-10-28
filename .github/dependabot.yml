@@ -1,4 +1,5 @@
 # Template-owned. Weekly dependency PRs; "chore(deps)" keeps them out of the
+# E2E: change this file to trigger a Dependabot run.
 # changelog's headline sections.
 version: 2
 updates:
