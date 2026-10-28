@@ -11,7 +11,7 @@
 
 ## Common problems
 
-<!-- guidance: one ### heading per symptom, in the user's words ("Exits with 'cannot read ..._FILE'"), then the cause and the fix. Add one whenever a bug report or a support question shows a new failure mode. -->
+Common failures are listed below.
 
 ### `error: cannot read E2E_THROWAWAY_..._FILE`
 

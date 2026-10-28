@@ -28,7 +28,9 @@ Never edit `CHANGELOG.md` or the version, and never push tags: release-please do
 - Settings go through `config.SETTINGS`. Secrets come from `_FILE`, and are never logged.
 - Prefer the standard library and existing dependencies. Justify every new one in the PR.
 
-<!-- guidance: project-specific rules (concurrency model, error types, naming), the kind of thing a reviewer keeps repeating. -->
+- Errors are specific exceptions (`ConfigError` for configuration problems). The CLI turns them into one `error: ...` line and exit code 2; no bare `except:`.
+- The HTTP handlers are synchronous and keep no shared mutable state; the configuration lives on `app.state.config`.
+- Give every route a `summary` and every setting a help text: the wiki tables are generated from them.
 
 ## Working with AI assistants
 

@@ -18,7 +18,7 @@ CI runs the unit tests on every supported Python version, together with ruff, my
 | `tests/integration/` | Real dependencies, marked `@pytest.mark.integration`; skipped unless `RUN_INTEGRATION=1` |
 | `tests/conftest.py` | Shared fixtures: `clean_env` (no `E2E_THROWAWAY_*` leakage), `write_config` |
 
-<!-- guidance: add fixtures, test data directories and fakes as they appear. -->
+The API tests use FastAPI's `TestClient` against `create_app(config)`, and `tests/unit/` has one module per source module (`test_api.py`, `test_cli.py`, `test_config.py`, `test_version.py`). There is no test data directory and no integration test yet.
 
 ## Writing tests
 
@@ -27,4 +27,4 @@ CI runs the unit tests on every supported Python version, together with ruff, my
 - Use placeholders for anything that looks real: `example.org`, `192.0.2.0/24`, fake tokens.
 - Don't lower the coverage floor or skip a test to make CI pass.
 
-<!-- guidance: project-specific patterns: how to fake the upstream API, time, the filesystem. -->
+There are no external systems to fake. For configuration, pass a dict as `environ` to `load_config` or use `write_config` with a file path; for the API, build the app from a `Config` and call it through `TestClient`. Time and the filesystem are not used by the code yet.

@@ -17,7 +17,7 @@ Generated from the code: don't edit the table, run `uv run scripts/gen-wiki.py`.
 
 `/healthz` (liveness) answers as long as the process runs. `/readyz` (readiness) answers 503 while the service can't serve, for example while a dependency is down. Orchestrators should restart on the first and route traffic on the second.
 
-<!-- guidance: for every non-health endpoint, add a subsection with the request (parameters, body), the response (with an example) and the errors it can return. -->
+`/version` returns `{"version": "<installed version>"}`. The health endpoints return `{"status": "ok"}` and `{"status": "ready"}`.
 
 ### `GET /hello`
 
@@ -31,10 +31,14 @@ No parameters, and no errors beyond the defaults.
 
 ## Authentication
 
-<!-- guidance: how clients authenticate (token header, forward-auth at the proxy, none on a private network), and what an unauthenticated request gets. -->
+None. The API has no authentication, and every endpoint answers any client that can reach the port. Restrict access with the network (bind address, NetworkPolicy) or a reverse proxy.
 
 ## Errors
 
 Errors are JSON: `{"detail": "<message>"}`, with a 4xx status for a client mistake and 5xx for a server-side failure.
 
-<!-- guidance: list the error statuses this API uses, and what a client should do about each. -->
+| Status | When | What to do |
+|---|---|---|
+| 404 | Unknown path | Check the path against the endpoint table. |
+| 405 | Wrong method; all endpoints are `GET` | Use `GET`. |
+| 503 | Reserved for `/readyz` when the service cannot serve (not returned yet) | Retry later; route traffic elsewhere. |

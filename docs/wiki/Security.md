@@ -2,7 +2,7 @@
 
 ## Threat model
 
-<!-- guidance: what this protects, from whom, and what is out of scope. What's exposed (ports, endpoints), who should be able to reach it, what it trusts (headers, upstreams, input files), and what an attacker gains if it is compromised. -->
+The service exposes one HTTP port (8080 by default) with read-only `GET` endpoints that return static JSON. It has no authentication, so only trusted clients should reach it: the Compose file binds to `127.0.0.1` and the Kubernetes NetworkPolicy admits only the ingress controller. It reads a YAML config file and environment variables, which are trusted operator input; `X-Forwarded-*` headers are honoured (`proxy_headers=True`), so expose it only behind a proxy you control. It holds no data, so a compromise gains little beyond the container's own permissions. Anything beyond the process itself is out of scope.
 
 ## Secrets
 
@@ -10,7 +10,7 @@
 - Values are never logged. Logs and `e2e-throwaway config` show where a value came from, never the value itself.
 - CI scans every commit with gitleaks, and secrets in history fail the build.
 
-<!-- guidance: list each secret, what it grants, and how to rotate it. -->
+There are no secrets today. When one is added, list it here with what it grants and how to rotate it.
 
 ## Hardening
 
@@ -19,7 +19,7 @@
 - **systemd:** a dedicated system user, `ProtectSystem=strict`, no capabilities, a system-call filter, and restricted address families.
 - **Supply chain:** dependencies are pinned in the lock file and updated weekly by Dependabot. GitHub Actions are pinned to commit SHAs.
 
-<!-- guidance: input validation, authentication and authorisation, rate limiting: what this project does and where. -->
+Input validation: configuration values are type-checked and range-checked at startup, and the endpoints take no user input. Authentication, authorisation and rate limiting are not implemented; do them at the reverse proxy if needed.
 
 ## Reporting a vulnerability
 

@@ -57,4 +57,4 @@ Read the [CHANGELOG](https://github.com/metalayerlab/e2e-throwaway/blob/main/CHA
 - Kubernetes: change `?ref=` (or the `images:` tag) in the overlay, and let Flux reconcile.
 - systemd: `uv pip install --python /opt/e2e-throwaway git+https://github.com/metalayerlab/e2e-throwaway@vX.Y.Z`, then `systemctl restart e2e-throwaway`.
 
-<!-- guidance: data or config migrations a release needs, and how to roll back. -->
+There are no data migrations: the service keeps no persistent state yet, so `state_dir` can be left alone on upgrade. Settings are only added, so existing config files keep working unless the CHANGELOG says otherwise. To roll back, deploy the previous image tag, `?ref=` or version with the same steps as an upgrade.
