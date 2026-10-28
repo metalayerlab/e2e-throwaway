@@ -21,6 +21,7 @@
   "packages": {
     ".": {
       "package-name": "e2e-throwaway",
+      "initial-version": "0.1.0",
       "extra-files": [
         {"type": "generic", "path": "contrib/k8s/kustomization.yaml"},
         {"type": "generic", "path": "contrib/docker/compose.yml"}
